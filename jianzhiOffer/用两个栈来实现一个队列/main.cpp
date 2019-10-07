@@ -1,5 +1,12 @@
-//用两个栈来实现一个队列，完成队列的Push和Pop操作。 
-//队列中的元素为int类型。
+/*
+用两个栈来实现一个队列，完成队列的Push和Pop操作。
+队列中的元素为int类型。
+push()函数中，直接将元素入栈。
+pop()函数中，首先要判断stack2是否为空，
+	为空则需要将stack1中的数据出栈并压入stack2，
+	然后删除栈顶即可。如果不为空，直接删除栈顶。
+*/
+
 #if 1
 #include<iostream>
 #include<stack>
@@ -10,11 +17,6 @@ class Solution
 public:
 	void push(int node)
 	{
-		while (!stack2.empty())
-		{
-			stack1.push(stack2.top());
-			stack2.pop();
-		}
 		stack1.push(node);
 	}
 
