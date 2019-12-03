@@ -37,8 +37,41 @@ void BinaryTree<T>::PostOrder(BinNode<T>* root_node)const//后序遍历
 	}
 }
 
+//非递归后序遍历  关键在怎么知道右子树是否被访问
+//tag
+template < typename T >
+void BinaryTree<T>::NorecPostOrder(BinNode<T>* root_node)
+{
+	if (root_node == nullptr)
+		return;
+	std::stack<BinNode<T>*> sta;
+	BinNode<T>* tag = nullptr;
+	BinNode<T>* ptr = root_node;
+	while (!sta.empty() || ptr != nullptr)
+	{
+		while (ptr != nullptr)
+		{
+			sta.push(ptr);
+			ptr = ptr->GetLeftChild();
+		}
+		ptr = sta.top();
+		sta.pop();
+		if (ptr->GetRightChild() == nullptr || ptr->GetRightChild() == tag)
+		{
+			std::cout << ptr->GetData() << " ";
+			tag = ptr;
+			ptr = nullptr;
+		}
+		else
+		{
+			sta.push(ptr->GetRightChild());
+			ptr = ptr->GetRightChild();
+		}
+	}
+}
+
 template<typename T>
-void BinaryTree<T>::NorecPostOrder(BinNode<T>* root_node)//非递归后序遍历
+void BinaryTree<T>::NorecPostOrder(BinNode<T>* root_node)//非递归后序遍历  关键在怎么知道右子树是否被访问
 {
 	if (root_node == nullptr)
 		return;
