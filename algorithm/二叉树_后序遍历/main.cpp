@@ -23,7 +23,7 @@ private:
 };
 
 template<typename T>
-void BinaryTree<T>::PostOrder(BinNode<T>* root_node)const//ºóĞò±éÀú
+void BinaryTree<T>::PostOrder(BinNode<T>* root_node)const//ååºéå†
 {
 	if (nullptr == root_node)
 		return;
@@ -37,7 +37,7 @@ void BinaryTree<T>::PostOrder(BinNode<T>* root_node)const//ºóĞò±éÀú
 	}
 }
 
-//·Çµİ¹éºóĞò±éÀú  ¹Ø¼üÔÚÔõÃ´ÖªµÀÓÒ×ÓÊ÷ÊÇ·ñ±»·ÃÎÊ
+//éé€’å½’ååºéå†  å…³é”®åœ¨æ€ä¹ˆçŸ¥é“å³å­æ ‘æ˜¯å¦è¢«è®¿é—®
 //tag
 template < typename T >
 void BinaryTree<T>::NorecPostOrder(BinNode<T>* root_node)
@@ -71,7 +71,7 @@ void BinaryTree<T>::NorecPostOrder(BinNode<T>* root_node)
 }
 
 template<typename T>
-void BinaryTree<T>::NorecPostOrder(BinNode<T>* root_node)//·Çµİ¹éºóĞò±éÀú  ¹Ø¼üÔÚÔõÃ´ÖªµÀÓÒ×ÓÊ÷ÊÇ·ñ±»·ÃÎÊ
+void BinaryTree<T>::NorecPostOrder(BinNode<T>* root_node)//éé€’å½’ååºéå†  å…³é”®åœ¨æ€ä¹ˆçŸ¥é“å³å­æ ‘æ˜¯å¦è¢«è®¿é—®
 {
 	if (root_node == nullptr)
 		return;
@@ -105,7 +105,7 @@ void BinaryTree<T>::NorecPostOrder(BinNode<T>* root_node)//·Çµİ¹éºóĞò±éÀú  ¹Ø¼üÔ
 }
 
 template<typename T>
-void BinaryTree<T>::NorecPostOrder(BinNode<T>* root_node)const//·Çµİ¹éºóĞò±éÀú,¹ã¶È±éÀú+ÄæĞòÊä³ö
+void BinaryTree<T>::NorecPostOrder(BinNode<T>* root_node)const//éé€’å½’ååºéå†,å¹¿åº¦éå†+é€†åºè¾“å‡º
 {
 	if (root_node == nullptr)
 		return;
