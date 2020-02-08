@@ -21,7 +21,7 @@ struct TreeNode
 	{}
 };
 
-//ÊäÈëA£¬B Á½¿ÃÊ÷£¬ÅÐ¶ÏBÊÇ·ñÎªAµÄ×ÓÊ÷£¬¿ÕÊ÷²»ÊÇÈÎÒâÊ÷µÄ×Ó½á¹¹
+//è¾“å…¥Aï¼ŒB ä¸¤æ£µæ ‘ï¼Œåˆ¤æ–­Bæ˜¯å¦ä¸ºAçš„å­æ ‘ï¼Œç©ºæ ‘ä¸æ˜¯ä»»æ„æ ‘çš„å­ç»“æž„
 class Solution {
 public:
 	bool doesTree1haveTree2(TreeNode* pRoot1, TreeNode* pRoot2)
