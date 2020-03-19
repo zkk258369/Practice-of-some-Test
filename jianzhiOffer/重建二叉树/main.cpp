@@ -11,7 +11,7 @@ using std::iterator;
 using namespace std;
 
 
-//ÓÃÇ°Ğò£¬ÖĞĞòÖØ½¨¶ş²æÊ÷
+//ç”¨å‰åºï¼Œä¸­åºé‡å»ºäºŒå‰æ ‘
 typedef struct TreeNode
 {
 	int val;
@@ -113,7 +113,7 @@ int main()
 	}
 	cout << endl;
 	vector<int>::iterator first = vec.begin();
-	vector<int> newVec(++first, first + 3 + 1);//first++»á³ö´í
+	vector<int> newVec(++first, first + 3 + 1);//first++ä¼šå‡ºé”™
 	for (int i = 0; i < newVec.size(); i++)
 	{
 		cout << newVec[i] << " ";
