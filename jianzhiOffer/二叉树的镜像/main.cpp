@@ -8,6 +8,8 @@ struct TreeNode {
 			val(x), left(NULL), right(NULL) {
 	}
 };
+
+//交换非叶子节点的左右子树
 class Solution
 {
 public:
