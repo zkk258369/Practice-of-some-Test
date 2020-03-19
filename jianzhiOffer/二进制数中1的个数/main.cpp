@@ -1,18 +1,18 @@
 /*
-ÊäÈëÒ»¸öÕûÊý£¬Êä³ö¸ÃÊý¶þ½øÖÆ±íÊ¾ÖÐ1µÄ¸öÊý¡£ÆäÖÐ¸ºÊýÓÃ²¹Âë±íÊ¾¡£
-½âÌâË¼Â·£º
-	1.ÉèÖÃÒ»¸ö±êÖ¾flag = 1£¬Óën½øÐÐÓëÔËËã£¬½á¹ûÎªÕæÔòËµÃ÷×îºóÒ»Î»ÊÇ1£¬
-Ôòcount++,Ö®ºó½«flag×óÒÆÒ»Î»£¬ÓënµÄµ¹ÊýµÚ¶þÎ»½øÐÐÓëÔËËã£¬
-½øÐÐÑ­»·£¬Ö±µ½flagÎª0¡£È»ºó·µ»ØcountµÄÖµ¡£
-	2.n¼õÒ»£¬ÓëÔ­À´µÄÊý½øÐÐÓëÔËËã£¬µÃµ½µÄÊý±ÈÔ­À´µÄnÉÙÁË×îÓÒ±ßµÄ1£¬
-	ÀûÓÃÕâ¸öÐÔÖÊ½âÌâ¡£
+è¾“å…¥ä¸€ä¸ªæ•´æ•°ï¼Œè¾“å‡ºè¯¥æ•°äºŒè¿›åˆ¶è¡¨ç¤ºä¸­1çš„ä¸ªæ•°ã€‚å…¶ä¸­è´Ÿæ•°ç”¨è¡¥ç è¡¨ç¤ºã€‚
+è§£é¢˜æ€è·¯ï¼š
+	1.è®¾ç½®ä¸€ä¸ªæ ‡å¿—flag = 1ï¼Œä¸Žnè¿›è¡Œä¸Žè¿ç®—ï¼Œç»“æžœä¸ºçœŸåˆ™è¯´æ˜Žæœ€åŽä¸€ä½æ˜¯1ï¼Œ
+åˆ™count++,ä¹‹åŽå°†flagå·¦ç§»ä¸€ä½ï¼Œä¸Žnçš„å€’æ•°ç¬¬äºŒä½è¿›è¡Œä¸Žè¿ç®—ï¼Œ
+è¿›è¡Œå¾ªçŽ¯ï¼Œç›´åˆ°flagä¸º0ã€‚ç„¶åŽè¿”å›žcountçš„å€¼ã€‚
+	2.nå‡ä¸€ï¼Œä¸ŽåŽŸæ¥çš„æ•°è¿›è¡Œä¸Žè¿ç®—ï¼Œå¾—åˆ°çš„æ•°æ¯”åŽŸæ¥çš„nå°‘äº†æœ€å³è¾¹çš„1ï¼Œ
+	åˆ©ç”¨è¿™ä¸ªæ€§è´¨è§£é¢˜ã€‚
 
 */
 #include<iostream>
 
 class Solution {
 public:
-	//×óÒÆflag
+	//å·¦ç§»flag
 	int  NumberOf1(int n) {
 		unsigned int flag = 1;
 		int count = 0;
@@ -25,7 +25,7 @@ public:
 		return count;
 	}
 
-	//ÓÐ¶àÉÙ¸öÒ»±ãÑ­»·¼¸´Î
+	//æœ‰å¤šå°‘ä¸ªä¸€ä¾¿å¾ªçŽ¯å‡ æ¬¡
 	int  NumberOf1(int n) {
 		int count = 1;
 		while (n)
