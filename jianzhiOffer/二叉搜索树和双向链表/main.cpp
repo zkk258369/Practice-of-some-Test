@@ -36,8 +36,7 @@ public:
                 sta.push(p);
                 p = p->left;
             }
-            p = sta.top();
-            sta.pop();
+            p = sta.top();sta.pop();
             if(isFirst)
             {
                 pnewRoot = p;
