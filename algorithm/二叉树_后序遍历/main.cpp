@@ -6,33 +6,49 @@
 #include<algorithm>
 
 template<typename T>
-class BinNode
+struct TreeNode 
 {
-public:
-	BinNode(const T& mdata);
-	void SetData(const T& mdata);
-	T& GetData();
-	void SetLeftChild(BinNode<T>* left);
-	BinNode<T>* GetLeftChild() const;
-	void SetRightChild(BinNode<T>* Right);
-	BinNode<T>* GetRightChild()const;
-private:
-	T data;
-	BinNode<T>* leftChild;
-	BinNode<T>* rightChild;
+	T val;
+	TreeNode<T> *left;
+	TreeNode<T> *right;
+	TreeNode(T x) 
+        :val(x), left(nullptr), right(nullptr)
+    {}
 };
 
 template<typename T>
-void BinaryTree<T>::PostOrder(BinNode<T>* root_node)const//后序遍历
+class BinaryTree
 {
-	if (nullptr == root_node)
+public:
+	BinaryTree(TreeNode<T>* _root)
+		:root(_root)
+	{}
+	~BinaryTree()
+	{}
+	TreeNode<T>* GetRoot(void)
+	{
+		return root;
+	}
+	void SetRoot(TreeNode<T>* _root)
+	{
+		root = _root;
+	}
+	void PostOrder(TreeNode<T>* root)const;
+
+private:
+	TreeNode<T>* root;
+};
+
+//后序遍历 recursive PostOrder
+template<typename T>
+void BinaryTree<T>::PostOrder(TreeNode<T>* root)const
+{
+	if (nullptr == root)
 		return;
 	else
 	{
-		BinNode<T>* left = root_node->GetLeftChild();
-		PostOrder(left);
-		BinNode<T>* right = root_node->GetRightChild();
-		PostOrder(right);
+		PostOrder(root->left);
+		PostOrder(root->right);
 		std::cout << root_node->GetData() << " ";
 	}
 }
