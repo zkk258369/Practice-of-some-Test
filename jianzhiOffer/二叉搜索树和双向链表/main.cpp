@@ -15,10 +15,10 @@ struct TreeNode
     {}
 };
 
-class Solution
+class Solution  // non recursive 转换成升序链表
 {
 public:
-    TreeNode* Convert(TreeNode* pRoot)//转换成升序链表
+    TreeNode* Convert(TreeNode* pRoot)
     {
         if(pRoot == nullptr)
             return nullptr;
@@ -55,9 +55,10 @@ public:
     }
 };
 
-class Solution2
+class Solution2  //recursive
 {
 public:
+    //第二个参数也可以用指针的引用(TreeNode*& lastNodeOfList)
     void convertNode(TreeNode* pNode, TreeNode** lastNodeOfList)
     {
         if(pNode == nullptr)
