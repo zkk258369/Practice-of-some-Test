@@ -54,3 +54,38 @@ public:
         return pnewRoot;
     }
 };
+
+class Solution2
+{
+public:
+    void convertNode(TreeNode* pNode, TreeNode** lastNodeOfList)
+    {
+        if(pNode == nullptr)
+            return;
+        if(pNode->left != nullptr)
+            convertNode(pNode->left, lastNodeOfList);
+        
+        if(*lastNodeOfList != nullptr)
+        {
+            (*lastNodeOfList)->right = pNode;
+        }
+        pNode->left = *lastNodeOfList;
+        *lastNodeOfList = pNode;
+        
+        if(pNode->right != nullptr)
+            convertNode(pNode->right, lastNodeOfList);
+    }
+    
+    TreeNode* Convert(TreeNode* pRootOfTree)
+    {
+        TreeNode* lastNodeOfList = nullptr;
+        convertNode(pRootOfTree, &lastNodeOfList);
+        
+        TreeNode* p = lastNodeOfList;
+        while(p != nullptr && p->left != nullptr)
+        {
+            p = p->left;
+        }
+        return p;
+    }
+};
