@@ -57,3 +57,8 @@ public:
         return DepthOfBinaryTree(root) != -1;
     }
 };
+
+int main()
+{
+    return 0;
+}
