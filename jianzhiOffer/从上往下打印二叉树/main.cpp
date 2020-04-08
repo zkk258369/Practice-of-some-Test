@@ -5,14 +5,13 @@
 using std::vector;
 using std::queue;
 
-struct TreeNode {
-	int val;
-	struct TreeNode *left;
-	struct TreeNode *right;
-	TreeNode(int x) :
-			val(x), left(NULL), right(NULL) {
-	}
-};
+typedef struct TreeNode
+{
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int x) :val(x){}
+}TreeNode;
 class Solution
 {
 public:
