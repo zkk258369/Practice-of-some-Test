@@ -40,7 +40,7 @@ public:
             }
             if(!vec1.empty())
                 res.push_back(vec1);
-               
+
             while(!sta2.empty())
             {
                 p = sta2.top();sta2.pop();

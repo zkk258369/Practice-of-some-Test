@@ -1,14 +1,14 @@
 /*
-°ÑÒ»¸öÊı×é×î¿ªÊ¼µÄÈô¸É¸öÔªËØ°áµ½Êı×éµÄÄ©Î²£¬ÎÒÃÇ³ÆÖ®ÎªÊı×éµÄĞı×ª¡£
-ÊäÈëÒ»¸ö·Çµİ¼õÅÅĞòµÄÊı×éµÄÒ»¸öĞı×ª£¬Êä³öĞı×ªÊı×éµÄ×îĞ¡ÔªËØ¡£
-ÀıÈçÊı×é{3,4,5,1,2}Îª{1,2,3,4,5}µÄÒ»¸öĞı×ª£¬¸ÃÊı×éµÄ×îĞ¡ÖµÎª1¡£
-NOTE£º¸ø³öµÄËùÓĞÔªËØ¶¼´óÓÚ0£¬ÈôÊı×é´óĞ¡Îª0£¬Çë·µ»Ø0¡£
+æŠŠä¸€ä¸ªæ•°ç»„æœ€å¼€å§‹çš„è‹¥å¹²ä¸ªå…ƒç´ æ¬åˆ°æ•°ç»„çš„æœ«å°¾ï¼Œæˆ‘ä»¬ç§°ä¹‹ä¸ºæ•°ç»„çš„æ—‹è½¬ã€‚
+è¾“å…¥ä¸€ä¸ªéé€’å‡æ’åºçš„æ•°ç»„çš„ä¸€ä¸ªæ—‹è½¬ï¼Œè¾“å‡ºæ—‹è½¬æ•°ç»„çš„æœ€å°å…ƒç´ ã€‚
+ä¾‹å¦‚æ•°ç»„{3,4,5,1,2}ä¸º{1,2,3,4,5}çš„ä¸€ä¸ªæ—‹è½¬ï¼Œè¯¥æ•°ç»„çš„æœ€å°å€¼ä¸º1ã€‚
+NOTEï¼šç»™å‡ºçš„æ‰€æœ‰å…ƒç´ éƒ½å¤§äº0ï¼Œè‹¥æ•°ç»„å¤§å°ä¸º0ï¼Œè¯·è¿”å›0ã€‚
 
-1.³£¹æ·½·¨±éÀúÊı×é¼´¿ÉÕÒµ½¡£Ê±¼ä¸´ÔÓ¶ÈO(n)
-2.Êı×éÓĞĞò£¬¿¼ÂÇ¶ş·Ö²éÕÒ¡£
-´¦ÀíÌØÀı£º
-Õû¸öÊı×é¶¼ÓĞĞò
-¶ş·Ö²éÕÒÖĞindexFirst,indexLast,indexMidÈı¸öÖ¸ÏòµÄÊı×ÖÏàÍ¬
+1.å¸¸è§„æ–¹æ³•éå†æ•°ç»„å³å¯æ‰¾åˆ°ã€‚æ—¶é—´å¤æ‚åº¦O(n)
+2.æ•°ç»„æœ‰åºï¼Œè€ƒè™‘äºŒåˆ†æŸ¥æ‰¾ã€‚
+å¤„ç†ç‰¹ä¾‹ï¼š
+æ•´ä¸ªæ•°ç»„éƒ½æœ‰åº
+äºŒåˆ†æŸ¥æ‰¾ä¸­indexFirst,indexLast,indexMidä¸‰ä¸ªæŒ‡å‘çš„æ•°å­—ç›¸åŒ
 */
 #include<iostream>
 #include<vector>
@@ -26,7 +26,7 @@ public:
 		}
 		int indexFirst = 0;
 		int indexLast = rotateArray.size() - 1;
-		int indexMid = indexFirst;//½â¾öÊı×é±¾À´È«²¿ÓĞĞò
+		int indexMid = indexFirst;//è§£å†³æ•°ç»„æœ¬æ¥å…¨éƒ¨æœ‰åº
 		while (rotateArray[indexFirst] >= rotateArray[indexLast])
 		{
 			if (indexLast - indexFirst == 1)
@@ -36,8 +36,8 @@ public:
 			}
 			indexMid = (indexFirst + indexLast) / 2;
 
-			//Èç¹ûindexFirst,indexLast,indexMidÈı¸öÖ¸ÏòµÄÊı×ÖÏàÍ¬
-			//ÔòÖ»ÄÜË³Ğò²éÕÒ
+			//å¦‚æœindexFirst,indexLast,indexMidä¸‰ä¸ªæŒ‡å‘çš„æ•°å­—ç›¸åŒ
+			//åˆ™åªèƒ½é¡ºåºæŸ¥æ‰¾
 			if (rotateArray[indexFirst] == rotateArray[indexMid] &&
 				rotateArray[indexMid] == rotateArray[indexLast])
 				return minNumberInRotateArray(rotateArray);
@@ -65,7 +65,7 @@ private:
 			}
 			it++;
 		}
-	}//end minNumberInRotateArray°´Ë³Ğò²éÕÒ
+	}//end minNumberInRotateArrayæŒ‰é¡ºåºæŸ¥æ‰¾
 };
 
 

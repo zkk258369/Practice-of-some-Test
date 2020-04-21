@@ -1,12 +1,12 @@
 /*
-ÌâÄ¿£ºÊäÈëÒ»¸öÁ´±íµÄÍ·½áµã£¬´ÓÎ²µ½Í··´¹ıÀ´´òÓ¡³öÃ¿¸ö½áµãµÄÖµ¡£
-½â¾öË¼Â·£º
-Òª¿¼ÂÇÊÇ·ñ¿ÉÒÔ¸Ä¶¯Ô­À´µÄÁ´±í¡£
-1.½«Á´±íÄæÖÃ£¬¼´Îª½«Á´±íÖ¸ÕëÈ«²¿·´ÖÃ£¬È»ºó´òÓ¡¡££¨¿ÉÒÔ¸Ä¶¯Á´±í£©
-2.ÏÈ±éÀúµ½µÄºó´òÓ¡£¬ºó±éÀúµ½µÄ¿ÉÒÔÏÈ´òÓ¡£¬¿ÉÒÔÓÃºó½øÏÈ³öµÄÕ»À´ÊµÏÖ¡£
-3.µİ¹éÊµÏÖ¡£
+é¢˜ç›®ï¼šè¾“å…¥ä¸€ä¸ªé“¾è¡¨çš„å¤´ç»“ç‚¹ï¼Œä»å°¾åˆ°å¤´åè¿‡æ¥æ‰“å°å‡ºæ¯ä¸ªç»“ç‚¹çš„å€¼ã€‚
+è§£å†³æ€è·¯ï¼š
+è¦è€ƒè™‘æ˜¯å¦å¯ä»¥æ”¹åŠ¨åŸæ¥çš„é“¾è¡¨ã€‚
+1.å°†é“¾è¡¨é€†ç½®ï¼Œå³ä¸ºå°†é“¾è¡¨æŒ‡é’ˆå…¨éƒ¨åç½®ï¼Œç„¶åæ‰“å°ã€‚ï¼ˆå¯ä»¥æ”¹åŠ¨é“¾è¡¨ï¼‰
+2.å…ˆéå†åˆ°çš„åæ‰“å°ï¼Œåéå†åˆ°çš„å¯ä»¥å…ˆæ‰“å°ï¼Œå¯ä»¥ç”¨åè¿›å…ˆå‡ºçš„æ ˆæ¥å®ç°ã€‚
+3.é€’å½’å®ç°ã€‚
 */
-//´ÓÎ²µ½Í·´òÓ¡Á´±í
+//ä»å°¾åˆ°å¤´æ‰“å°é“¾è¡¨
 #if 1
 #include<iostream>
 #include<vector>
@@ -29,7 +29,7 @@ class Solution
 public:
 	vector<int> printListFromTailToHead(ListNode* head)
 	{
-		//ÓÃreverse()ÄæÖÃvectorÊı×é
+		//ç”¨reverse()é€†ç½®vectoræ•°ç»„
 		//if(head == NULL)
 		//{
 		//	return vector<int>();
@@ -49,7 +49,7 @@ public:
 		//	return ArrayList;
 		//}//end else
 
-		//ÓÃstackÊµÏÖ
+		//ç”¨stackå®ç°
 		//std::vector<int> vec;
 		//std::stack<int> nodes;
 		//ListNode* pNode = head;
@@ -69,16 +69,16 @@ public:
 		//}
 		//return vec;
 
-		//¸Ä¶¯Ô­À´Á´±í
+		//æ”¹åŠ¨åŸæ¥é“¾è¡¨
 		//if(head == NULL)
 		//{
 		//	return vector<int>();
 		//}
 		//else
 		//{
-		//	ListNode* ptmp = head;   //Ö¸ÏòÉÏÒ»¸ö½Úµã
-		//	ListNode* pnext = NULL;  //Ö¸ÏòÏÂÒ»¸ö½Úµã
-		//	ListNode* p = head->next;//Ö¸Ïòµ±Ç°½Úµã
+		//	ListNode* ptmp = head;   //æŒ‡å‘ä¸Šä¸€ä¸ªèŠ‚ç‚¹
+		//	ListNode* pnext = NULL;  //æŒ‡å‘ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
+		//	ListNode* p = head->next;//æŒ‡å‘å½“å‰èŠ‚ç‚¹
 		//	while (p != NULL)
 		//	{
 		//		pnext = p->next;
@@ -100,7 +100,7 @@ public:
 	}//end printListFromTailToHead
 };
 
-//µİ¹éÊµÏÖ
+//é€’å½’å®ç°
 void printReverseLinkList(ListNode* head)
 {
 	if (head != NULL)
@@ -115,7 +115,7 @@ void printReverseLinkList(ListNode* head)
 
 int main()
 {
-	//ÄæÖÃÁ´±í
+	//é€†ç½®é“¾è¡¨
 	struct ListNode L1(67);
 	struct ListNode L2(0);
 	L1.next = &L2;
