@@ -1,6 +1,3 @@
-/*
- *寻找最近公共祖先节点
-*/
 #include<iostream>
 #include<unordered_map>
 #include<vector>
@@ -19,7 +16,11 @@ struct TreeNode
         : val(x), left(NULL), right(NULL)
     {}
 };
- 
+
+/*
+ *寻找最近公共祖先节点
+*/
+
 class Solution  //recursive
 {
 public:
@@ -51,7 +52,7 @@ private:
     TreeNode* ans;
 };
 
-class Solution  //recursive2
+class Solution1  //recursive2
 {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) 
@@ -103,7 +104,7 @@ public:
     }
 };
 
-class Solution 
+class Solution2
 {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) 
