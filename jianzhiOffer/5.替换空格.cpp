@@ -1,3 +1,7 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
 /*
 题目：请实现一个函数，把字符串中的每个空格替换成“%20”.
 例如输入“we are happy”,则输出“we%20are%20happy”.
@@ -8,7 +12,8 @@
 	时间复杂度的优化
 */
 //O^2的解法：
-class Solution {
+class Solution1
+{
 public:
 	void replaceSpace(char *str, int length) {
 		if (str == NULL){
@@ -35,35 +40,53 @@ public:
 
 
 /*
-优化：
-先计算空格数，设置两个指针，p1指向原来字符串尾部，p2指向修改后尾部
-从后往前替换空格；
-减少了一些字符被移动的次数
+ * 优化：
+ * 先计算空格数，设置两个指针，p1指向原来字符串尾部，p2指向修改后尾部
+ * 从后往前替换空格；
+ * 减少了一些字符被移动的次数
+ * *假设面试官让修改原理字符串
 */
-class Solution{
+class Solution
+{
 public:
-	void replaceSpace(char *str, int length) {
-		//假设面试官让在原来基础上修改字符串
+	string replaceSpace(string s)
+	{
 		int spaceNum = 0;
-		int i = 0;
-		while (str[i] != '\0'){
-
-			if (str[i++] == ' ')
-				spaceNum++;
+		for (auto it : s)
+		{
+			if (it == ' ') ++spaceNum;
 		}
-		int newLength = i + 2 * spaceNum;//替换后字符串的总大小
-		char* p1 = str + i;
-		char* p2 = str + newLength;
-		while (p1 < p2){
-			if (*p1 == ' '){
-				*(p2--) = '0';
-				*(p2--) = '2';
-				*(p2--) = '%';
+		if (spaceNum == 0) return s;
+
+		int p1 = s.size() - 1;
+		unsigned int newLength = s.size() + 2 * spaceNum;//替换后字符串的总大小
+		s.resize(newLength);
+		int p2 = s.size() - 1;
+		while (p1 < p2)
+		{
+			if (s[p1] == ' ')
+			{
+				s[p2--] = '0';
+				s[p2--] = '2';
+				s[p2--] = '%';
 			}
-			else{
-				*(p2--) = *p1;
-			}
+			else s[p2--] = s[p1];
+
 			p1--;
 		}
+		return s;
 	}
 };
+
+
+int main()
+{
+	string s("we are happy");
+
+	Solution ss;
+	s = ss.replaceSpace(s);
+	cout << s << endl;
+
+	system("pause");
+	return 0;
+}
