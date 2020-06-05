@@ -1,27 +1,19 @@
 #if 1
+//用前序，中序重建二叉树
 
 #define _CRT_SECURE_NO_WARNINGS
-
-#include<iostream>
-#include<iterator>
-#include<vector>
-
-using std::vector;
-using std::iterator;
+#include<bits/stdc++.h>
 using namespace std;
 
-
-//用前序，中序重建二叉树
 typedef struct TreeNode
 {
 	int val;
 	TreeNode *left;
 	TreeNode *right;
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-
 }TreeNode;
 
-class Solution
+class Solution1  //rec
 {
 public:
 	vector<int>::iterator findVin(vector<int> vin, int x)
@@ -70,56 +62,66 @@ public:
 	}
 };
 
-class Solution2
+class Solution2  // rec
 {
 public:
-	TreeNode* reConstructBinaryTree(vector<int> pre, vector<int> vin)
-	{
-		int inlen = vin.size();
-		if (inlen == 0)
-			return nullptr;
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder)
+    {
+        int inLen = inorder.size();
+        if(0 == inLen || preorder.size() == 0) return nullptr;
 
-		TreeNode* root = new TreeNode(pre[0]);
+        TreeNode *root = new TreeNode(preorder[0]);
 
-		int pos = 0;
-		for (int i = 0; i < inlen; i++)
-		{
-			if (vin[i] == pre[0])
-			{
-				pos = i;
-				break;
-			}
-		}
+        int pos = -1;
+        for(int i=0; i<inLen; i++)
+        {
+            if(inorder[i] == preorder[0]) { pos = i; break; }
+        }
 
-		vector<int> newLeftPre(++pre.begin(), pre.begin() + pos + 1);
-		vector<int> newLeftVin(vin.begin(), vin.begin() + pos);
+        vector<int> newLeftPre(preorder.begin()+1, preorder.begin()+1+pos);
+        vector<int> newRightPre(preorder.begin()+1+pos, preorder.end());
+        vector<int> newLeftIn(inorder.begin(), inorder.begin()+pos);
+        vector<int> newRightIn(inorder.begin()+pos+1,inorder.end());
 
-		vector<int> newRightPre(pre.begin() + 1 + pos, pre.end());
-		vector<int> newRightVin(vin.begin() + pos + 1, vin.end());
-
-		root->left = reConstructBinaryTree(newLeftPre, newLeftVin);
-		root->right = reConstructBinaryTree(newRightPre, newRightVin);
-		return root;
-	}
+        root->left = buildTree(newLeftPre, newLeftIn);
+        root->right = buildTree(newRightPre, newRightIn);
+        return root;
+    }
 };
 
-int main()
+class Solution3  // non rec
 {
-	int arr[8] = { 1, 2, 3, 4, 5, 6, 7 };
-	vector<int> vec(arr, arr + 8);
-	for (int i = 0; i < 7; i++)
-	{
-		cout << vec[i] << " ";
-	}
-	cout << endl;
-	vector<int>::iterator first = vec.begin();
-	vector<int> newVec(++first, first + 3 + 1);//first++会出错
-	for (int i = 0; i < newVec.size(); i++)
-	{
-		cout << newVec[i] << " ";
-	}
-	system("pause");
-	return 0;
-}
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder)
+    {
+		if(preorder.size() == 0) return nullptr;
+		TreeNode* root = new TreeNode(preorder[0]);
+		int preLen = preorder.size();
+		stack<TreeNode*> sta;
+		sta.push(root);
+		int inorderIndex = 0;
+		for(int i=1; i<preLen; i++)
+		{
+			int preVal = preorder[i];
+			TreeNode* pnode = sta.top();
+			if(pnode->val != inorder[inorderIndex])
+			{
+				pnode->left = new TreeNode(preVal);
+				sta.push(pnode->left);
+			}
+			else
+			{
+				while(!sta.empty() && sta.top()->val == inorder[inorderIndex])
+				{
+					pnode = sta.top(); sta.pop();
+					inorderIndex++;
+				}
+				pnode->right = new TreeNode(preVal);
+				sta.push(pnode->right);
+			}
+		}
+		return root;
+    }
+};
 
 #endif
