@@ -44,9 +44,9 @@ union Sutf8_16
 	unsigned char data[2];
 	struct
 	{
-		unsigned short ah : 5;
+		unsigned short ah   : 5;
 		unsigned short tagh : 3;
-		unsigned short al : 6;
+		unsigned short al   : 6;
 		unsigned short tagl : 2;
 	};
 };
@@ -65,12 +65,12 @@ union Sutf8_24
 	unsigned char data[3];
 	struct
 	{
-		unsigned char hh : 4;
+		unsigned char hh    : 4; // taghh 和 hh 放在data[0]
 		unsigned char taghh : 4;
-		unsigned char ah : 6;
-		unsigned char tagh : 2;
-		unsigned char al : 6;
-		unsigned char tagl : 2;
+		unsigned char ah    : 6; // tagh 和 ah 放在data[1]
+		unsigned char tagh  : 2;
+		unsigned char al    : 6; // tagl 和 al 放在data[2]
+		unsigned char tagl  : 2;
 	};
 };
 
