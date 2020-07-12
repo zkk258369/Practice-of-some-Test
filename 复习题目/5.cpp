@@ -83,9 +83,10 @@ void* my_memcpy(void* dest, const void* src, size_t count)
 
 void* my_memmove(void* dest, const void* src, size_t count)
 {
-	assert(dest != nullptr && src != nullptr);
-	if (dest < src) // dest尾巴可能和src头部重合
-	{
+	assert(dest);
+	assert(src);
+	if (dest < src || (char*)dest >= ((char*)src + count)) // dest尾巴可能和src头部重合
+	{                                                      // 或者dest > src,但是src+count没有与dest头部重合
 		char* p = (char*)dest;
 		char* q = (char*)src;
 		while (count--)
