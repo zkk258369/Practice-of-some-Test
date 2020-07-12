@@ -1,4 +1,6 @@
+#if 1
 #include<iostream>
+#include<string.h>
 using namespace std;
 
 /*
@@ -20,37 +22,136 @@ using namespace std;
  * 还要判断转换成Unicode字节流后是否满足Unicode字节流的要求，
  * 比如 1100 0001 1000 0000 是合法的UTF-8字节流，
  * 但准换成Unicode字节流后是 0000 0|000 01|00 0000
- * 不满足 大于0x80 并且 小于0x7ff 的条件
+ * 不满足 大于0x80 并且 小于0x7ff 的条件，所以不是合法的UTF-8字节流
 */
 
-union node6
+union GSutf8_8  // char  // Get Set
 {
-	unsigned char a;
-	unsigned char al:6;
+	wchar_t code;
+	char ch[1];
 };
-
-union utf8_Node2
+union Gutf8_16 // 2char
 {
-	unsigned short a;
+	wchar_t code; // 2
 	struct
 	{
-		unsigned short al:6;
-		unsigned short ah:5;
+		unsigned short al : 6;
+		unsigned short ah : 5;
+	};
+};
+union Sutf8_16
+{
+	unsigned char data[2];
+	struct
+	{
+		unsigned short ah : 5;
+		unsigned short tagh : 3;
+		unsigned short al : 6;
+		unsigned short tagl : 2;
+	};
+};
+union Gutf8_24
+{
+	wchar_t code;
+	struct
+	{
+		unsigned short al : 6;
+		unsigned short ah : 6;
+		unsigned short hh : 4;
+	};
+};
+union Sutf8_24
+{
+	unsigned char data[3];
+	struct
+	{
+		unsigned char hh : 4;
+		unsigned char taghh : 4;
+		unsigned char ah : 6;
+		unsigned char tagh : 2;
+		unsigned char al : 6;
+		unsigned char tagl : 2;
 	};
 };
 
-union utf8_Node3
+int Unicode_to_UTF8(wchar_t* code, int len, unsigned char* buffer)
 {
-	unsigned short a;
-	struct
+	int i = 0;
+	int j = 0;
+	while (i<len)
 	{
-		unsigned short al:6;
-		unsigned short ah:6;
-		unsigned short head:4;
-	};
-};
+		if (code[i] >= 0x0000 && code[i] <= 0x007f)
+		{
+			GSutf8_8 x;
+			x.code = code[i];
+			memcpy(buffer + j, x.ch, 1);
+			j += 1;
+		}
+		else if (code[i] >= 0x0080 && code[i] <= 0x07ff)
+		{
+			Gutf8_16 x;
+			Sutf8_16 y;
+			x.code = code[i];
+			y.al = x.al;
+			y.tagl = 2; // 10
+			y.ah = x.ah;
+			y.tagh = 6; // 110;
+			memcpy(buffer + j, y.data, 2);
+			j += 2;
+		}
+		else
+		{
+			Gutf8_24 x;
+			Sutf8_24 y;
+			x.code = code[i];
+			y.al = x.al;
+			y.tagl = 2; // 10;
+			y.ah = x.ah;
+			y.tagh = 2; // 10;
+			y.hh = x.hh;
+			y.taghh = 14; // 1110 
+			memcpy(buffer + j, y.data, 3);
+			j += 3;
+		}
+		++i;
+	}
+	j += 1;
+	buffer[j] = '\0';
+	return j - 1;
+}
 
-int calc_utf8_count(unsigned char* data_ptr, unsigned int data_len)
+wchar_t UTF8_to_Unicode(unsigned char* str, int len) // len=1 , len=2 , len=3
+{
+	if (len < 1 || len > 3) return 0xffff;
+	if (len == 1)
+	{
+		GSutf8_8 x = { 0 };
+		x.ch[0] = str[0];
+		return x.code;
+	}
+	else if (len == 2)
+	{
+		Sutf8_16 x = { 0 };
+		x.data[0] = str[0];
+		x.data[1] = str[1];
+		Gutf8_16 y = { 0 };
+		y.al = x.al;
+		y.ah = x.ah;
+		return y.code;
+	}
+	else if (len == 3)
+	{
+		Sutf8_24 x = { 0 };
+		x.data[0] = str[0]; x.data[1] = str[1]; x.data[2] = str[2];
+		Gutf8_24 y = { 0 };
+		y.al = x.al;
+		y.ah = x.ah;
+		y.hh = x.hh;
+		return y.code;
+	}
+}
+
+int Calc_UTF8_Count(unsigned char* data_ptr, unsigned int data_len)
 {
 	int sum = 0;
 	int i = 0;
@@ -63,22 +164,15 @@ int calc_utf8_count(unsigned char* data_ptr, unsigned int data_len)
 		}
 		else if ((i + 2) < data_len && (data_ptr[i] >> 5) == 6 && (data_ptr[i + 1] >> 6) == 2)
 		{
-			utf8_Node2 node;
-			node.a = 0;
-			node.ah = data_ptr[i] & 0x1f;
-			node.al = data_ptr[i + 1] & 0x3f;
-			if (node.a < 0x80 || node.a > 0x7ff) return -1;
+			wchar_t wc = UTF8_to_Unicode(data_ptr + i, 2);
+			if (wc < 0x0080 || wc > 0x07ff) return -1;
 			sum += 1;
 			i += 2;
 		}
 		else if ((i + 3) < data_len && (data_ptr[i] >> 4) == 14 && (data_ptr[i + 1] >> 6 == 2 && (data_ptr[i + 2] >> 6) == 2))
 		{
-			utf8_Node3 node;
-			node.a = 0;
-			node.head = data_ptr[i] & 0xf;
-			node.ah = data_ptr[i + 1] & 0x3f;
-			node.al = data_ptr[i + 2] & 0x3f;
-			if (node.a < 0x800 || node.a > 0x7fff) return -1;
+			wchar_t wc = UTF8_to_Unicode(data_ptr + i, 3);
+			if (wc < 0x0800 || wc > 0xFFFF) return -1;
 			sum += 1;
 			i += 3;
 		}
@@ -94,6 +188,20 @@ int calc_utf8_count(unsigned char* data_ptr, unsigned int data_len)
 
 int main()
 {
+	unsigned char buffer[256] = { 0 };
+	wchar_t x[] = { L"yhp杨和平hello" }; // L指定为Unicode字符串
+	int n = sizeof(x) / sizeof(x[0]) - 1;
+	cout << "n = " << n << endl;
+
+	cout << "x = " << x[0] << " " << x[1] << " " << x[2] << " " << x[3] << endl;
+
+	int len = Unicode_to_UTF8(x, n, buffer);
+	cout << "len = " << len << endl;
+	cout << "buffer = " << buffer << endl;
+
+	len = Calc_UTF8_Count(buffer, len);
+	cout << "len = " << len << endl;
+
 	unsigned char str[10] = { 0 };
 	str[0] = 0x62;
 
@@ -110,7 +218,7 @@ int main()
 
 	str[9] = 0x63;
 
-	int res = calc_utf8_count(str, 10);
+	int res = Calc_UTF8_Count(str, 10);
 	cout << "res = " << res << endl;  // res = 5
 
 	unsigned char str1[10] = { 0 };
@@ -129,7 +237,7 @@ int main()
 
 	str1[9] = 0x63;
 
-	int res1 = calc_utf8_count(str1, 10);
+	int res1 = Calc_UTF8_Count(str1, 10);
 	cout << "res1 = " << res1 << endl;  // res1 = -1
 
 	unsigned char str2[10] = { 0 };
@@ -148,8 +256,9 @@ int main()
 
 	str2[9] = 0x63;
 
-	int res2 = calc_utf8_count(str2, 10);
+	int res2 = Calc_UTF8_Count(str2, 10);
 	cout << "res2 = " << res2 << endl;  // res2 = 5
 
 	return 0;
 }
+#endif
