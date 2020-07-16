@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<stack>
 using namespace std;
 
 class Solution
@@ -27,6 +28,40 @@ public:
     {
         vector<vector<int>> res;
         perm(nums, 0, nums.size()-1, res);
+        return res;
+    }
+};
+
+class Solution2
+{
+public:
+    void dfs(vector<int>& nums, int len, int depth, vector<int>& path,  vector<bool>& used, vector<vector<int>>& res)
+    {
+        if(depth == len)
+        {
+            res.push_back(path);
+            return;
+        }
+        else
+        {
+            for(int i=0; i<len; i++)
+            {
+                if(used[i]) continue;
+                path.push_back(nums[i]);
+                used[i] = true;
+                dfs(nums, len, depth+1, path, used, res);
+                used[i] = false;
+                path.pop_back();
+            }
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums)
+    {
+        int len = nums.size();
+        vector<vector<int>> res;
+        vector<int> path;
+        vector<bool> used(len, false);
+        dfs(nums, len, 0, path, used, res);
         return res;
     }
 };
