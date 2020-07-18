@@ -41,39 +41,39 @@ public:
 	int partition(vector<int>& arr, int l, int r)
 	{
 		int pivot = arr[r];
-		int i = l - 1;
-		for (int j = l; j <= r - 1; j++)
+		int i = l-1;
+		for(int j=0; j<r; j++)
 		{
-			if (arr[j] <= pivot)
+			if(arr[j] < pivot)
 			{
-				i = i + 1;
+				i++;
 				swap(arr[i], arr[j]);
 			}
 		}
-		swap(arr[i + 1], arr[r]);
-		return i + 1;
+		swap(arr[i+1], arr[r]);
+		return i+1;
 	}
 	int randomized_partition(vector<int>& arr, int l, int r)
 	{
-		int i = rand() % (r - l + 1) + l;
+		int i = rand() % (r-l+1) + l;
 		swap(arr[r], arr[i]);
 		return partition(arr, l, r);
 	}
 	void randomized_select(vector<int>& arr, int l, int r, int k)
 	{
-		if (l >= r) return;
+		if(l >= r) return;
 		int pos = randomized_partition(arr, l, r);
 		int num = pos - l + 1;
-		if (k == num) return;
-		else if (k < num) randomized_select(arr, l, pos - 1, k);
-		else randomized_select(arr, pos + 1, r, k - num);
+		if(k == num) return;
+		else if(k < num) randomized_select(arr, 0, pos-1, k);
+		else randomized_select(arr, pos+1, r, k-num);
 	}
 	vector<int> getLeastNumbers(vector<int>& arr, int k)
 	{
 		srand((unsigned)time(nullptr));
-		randomized_select(arr, 0, arr.size() - 1, k);
+		randomized_select(arr, 0, arr.size()-1, k);
 		vector<int> res(k);
-		for (int i = 0; i < k; i++)
+		for(int i=0; i<k; i++)
 		{
 			res[i] = arr[i];
 		}
