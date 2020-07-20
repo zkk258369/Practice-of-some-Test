@@ -7,15 +7,14 @@ class Solution
 public:
     bool findNumberIn2DArray(vector<vector<int>>& matrix, int target)
     {
-        int x = 0;
-        for(int i = matrix.size()-1; i>=0; --i)
+        if(matrix.empty()) return false;
+        int i = 0;
+        int j = matrix[0].size()-1;
+        while(j >= 0 && i < matrix.size())
         {
-            for(int j = x; j<matrix[i].size(); ++j)
-            {
-                if(matrix[i][j] > target) break;
-                else if(matrix[i][j] == target) return true;
-                else ++x;
-            }
+            if(matrix[i][j] > target) j--;
+            else if(matrix[i][j] < target) i++;
+            else return true;
         }
         return false;
     }
