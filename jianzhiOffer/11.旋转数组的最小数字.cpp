@@ -20,7 +20,7 @@ public:
     {
         if(arr.size() == 0) return 0;
         int left = 0;
-        int right = arr.size()-1;
+        int right = arr.size()-1;//[2,2,2,0,1]
         while(left < right)
         {
             int mid = left + (right-left)/2;
