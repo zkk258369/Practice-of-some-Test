@@ -72,3 +72,33 @@ public:
 		return res;
 	}
 };
+
+class Solution // 单调栈 常数优化
+{
+public:
+	int largestRectangleArea(vector<int>& heights)
+	{
+		int res = 0;
+		int n = heights.size();
+		vector<int> minLeft(n);
+		vector<int> minRight(n, n);
+		stack<int> mono_stack;
+
+		for (int i = 0; i<n; i++)
+		{
+			while (!mono_stack.empty() && heights[mono_stack.top()] >= heights[i])
+			{
+				minRight[mono_stack.top()] = i;
+				mono_stack.pop();
+			}
+			minLeft[i] = mono_stack.empty() ? -1 : mono_stack.top();
+			mono_stack.push(i);
+		}
+		// find maxArea
+		for (int i = 0; i<n; i++)
+		{
+			res = max(res, heights[i] * (minRight[i] - minLeft[i] - 1));
+		}
+		return res;
+	}
+};
