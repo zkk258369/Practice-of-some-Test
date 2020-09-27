@@ -10,7 +10,7 @@ struct DuListNode
 	int value;
 	DuListNode* pre;
 	DuListNode* next;
-	DuListNode() :pre(nullptr), next(nullptr){}
+	DuListNode() :pre(nullptr), next(nullptr) {}
 	DuListNode(int _key, int _value)
 		:key(_key), value(_value), pre(nullptr), next(nullptr)
 	{}
